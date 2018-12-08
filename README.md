@@ -9,7 +9,7 @@
 您可以通过 composer 安装软件包：
 
 ``` bash
-composer require starrysea/curl
+composer require starrysea/validate
 ```
 
 在 Laravel 5.6 中，服务提供商将自动注册。在旧版本的框架中，只需在 config/app.php 文件中添加服务提供程序：
@@ -17,12 +17,12 @@ composer require starrysea/curl
 ```php
 'providers' => [
     // ...
-    Starrysea\Curl\CurlServiceProvider::class,
+    Starrysea\Validate\ValidateServiceProvider::class,
 ];
 
 'aliases' => [
     // ...
-    'Curl' => Starrysea\Curl\Curl::class,
+    'Validate' => Starrysea\Validate\Validate::class,
 ];
 ```
 
@@ -31,52 +31,60 @@ composer require starrysea/curl
 您可以通过 composer 安装软件包：
 
 ``` bash
-composer require starrysea/curl
+composer require starrysea/validate
 ```
 
 注册服务提供者和门面：
 
 ```bash
-$app->register(Starrysea\Curl\CurlServiceProvider::class); // 注册 Curl 服务提供者
+$app->register(Starrysea\Validate\ValidateServiceProvider::class); // 注册 Validate 服务提供者
 
-class_alias(Starrysea\Curl\Curl::class, 'Curl'); // 添加 Curl 门面
+class_alias(Starrysea\Validate\Validate::class, 'Validate'); // 添加 Validate 门面
 ```
 
 ## 用法
 
 ```php
-use Starrysea\Curl\Curl;
-
-class CurlGatherTest
+class FormRequestGatherTest
 {
-    public static function get_curl()
+    // 展现构筑规则类名
+    protected $showSource = true;
+
+    // 展现当前请求验证的所有规则
+    protected $showRule = true;
+
+    // 该规则任何时候都生效, 但是优先级最低, 可被其它规则重写
+    public function rules()
     {
-        return Curl::get_curl('https://github.com/caixingyue/laravel-starrysea-curl'); // get request
-
-//        return Curl::get_curl('https://github.com/caixingyue/laravel-starrysea-curl', [
-//            'title' => '你好, Laravel'
-//        ]); // post request
-
-//        return Curl::get_curl('https://github.com/caixingyue/laravel-starrysea-curl', [
-//            'title' => '你好, Laravel'
-//        ],[
-//            'headers' => '星月来啦'
-//        ]); // post and header request
+        return [
+            'idcode' => 'identitys',
+            'phone'  => 'phone'
+        ];
     }
 
-    public static function first()
+    // 构筑规则获得如下类, 该规则仅 get 请求生效
+    public function rulesGet()
     {
-        return Curl::first()->get('https://github.com/caixingyue/laravel-starrysea-curl', [
-            'title' => '你好, Laravel'
-        ])->request(); // get request
+        return [
+            'phone' => 'bail|required|phone',
+            'password' => 'bail|required|password:c',
+        ];
+    }
 
-//        return Curl::first()->post('https://github.com/caixingyue/laravel-starrysea-curl', [
-//            'title' => '你好, Laravel'
-//        ])->request(); // post request
+    // 构筑规则获得如下类, 该规则仅 admin/system/role 路径请求生效
+    public function rulespathAdminSystemRole()
+    {
+        return [
+            //
+        ];
+    }
 
-//        return Curl::first()->get('https://github.com/caixingyue/laravel-starrysea-curl')->headers([
-//            'title' => '你好, Laravel'
-//        ])->request(); // get and header request
+    // 构筑规则获得如下类, 该规则仅路由名 role 请求生效
+    public function rulesrouteRole()
+    {
+        return [
+            //
+        ];
     }
 }
 ```
