@@ -81,13 +81,28 @@ Route::get('/{manyid}', function ($manyid) {
 ```
 
 ```php
+// app/Providers/AppServiceProvider.php
 
+use Starrysea\Validate\Validate;
+
+class AppServiceProvider
+{
+    ...
+
+    public function boot()
+    {
+        Validate::FormRules(); // 扩展表单验证规则
+        ...
+    }
+    
+    ...
+}
 ```
 
 ```php
 class FormRequestGatherTest
 {
-    // 展现构筑规则类名
+    // 展现构筑规则方法名
     protected $showSource = true;
 
     // 展现当前请求验证的所有规则
@@ -102,7 +117,7 @@ class FormRequestGatherTest
         ];
     }
 
-    // 构筑规则获得如下类, 该规则仅 get 请求生效
+    // 构筑规则获得如下方法, 该规则仅 get 请求生效
     public function rulesGet()
     {
         return [
@@ -111,7 +126,7 @@ class FormRequestGatherTest
         ];
     }
 
-    // 构筑规则获得如下类, 该规则仅 admin/system/role 路径请求生效
+    // 构筑规则获得如下方法, 该规则仅 admin/system/role 路径请求生效
     public function rulespathAdminSystemRole()
     {
         return [
@@ -119,7 +134,7 @@ class FormRequestGatherTest
         ];
     }
 
-    // 构筑规则获得如下类, 该规则仅路由名 role 请求生效
+    // 构筑规则获得如下方法, 该规则仅路由名 role 请求生效
     public function rulesrouteRole()
     {
         return [
