@@ -64,6 +64,8 @@ class RouteServiceProvider
 ```
 
 ```php
+// routes/web.php
+
 // 验证 id/ids
 Route::get('/{id}', function ($id) {
     return $id; // 纯数字通过, 否则 404 错误
@@ -97,6 +99,36 @@ class AppServiceProvider
     
     ...
 }
+```
+
+```php
+// resources/lang/en/validation.php
+
+return [
+    ...
+
+    'identitys' => 'The :attribute not a valid id number.',
+
+    'phone' => 'The :attribute not a legal chinese mobile number.',
+
+    'english' => 'The :attribute contains characters other than spaces, english, and numbers.',
+
+    'password' => 'The :attribute does not meet the password verification rules.',
+];
+
+// resources/lang/zh_cn/validation.php
+
+return [
+    ...
+
+    'identitys' => ':attribute 不是合法的身份证号码',
+
+    'phone' => ':attribute 不是合法的中国手机号码',
+
+    'english' => ':attribute 包含了空格、英文、数字以外的字符',
+
+    'password' => ':attribute 不符合密码验证规则',
+];
 ```
 
 ```php
