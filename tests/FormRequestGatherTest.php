@@ -10,7 +10,7 @@ class FormRequestGatherTest
     // 展现当前请求验证的所有规则
     protected $showRule = true;
 
-    // 该规则任何时候都生效, 但是优先级最低, 可被其它规则覆盖
+    // 该规则任何时候都生效, 但是优先级最低, 可被其它规则重写
     public function rules()
     {
         return [
