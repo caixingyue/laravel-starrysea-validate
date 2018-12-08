@@ -45,6 +45,46 @@ class_alias(Starrysea\Validate\Validate::class, 'Validate'); // 添加 Validate 
 ## 用法
 
 ```php
+// app/Providers/RouteServiceProvider.php
+
+use Starrysea\Validate\Validate;
+
+class RouteServiceProvider
+{
+    ...
+    
+    public function boot()
+    {
+        Validate::RoutesParameter(); // 定义路由参数验证
+        ...
+    }
+    
+    ...
+}
+```
+
+```php
+// 验证 id/ids
+Route::get('/{id}', function ($id) {
+    return $id; // 纯数字通过, 否则 404 错误
+});
+
+// 验证手机号码
+Route::get('/{phone}', function ($phone) {
+    return $phone; // 中国11位手机号码通过, 否则 404 错误
+});
+
+// 验证多id, 以","号分隔, 如: 1,2,3,4,5
+Route::get('/{manyid}', function ($manyid) {
+    return $manyid; // 全部都为数字通过, 否则 404 错误
+});
+```
+
+```php
+
+```
+
+```php
 class FormRequestGatherTest
 {
     // 展现构筑规则类名
