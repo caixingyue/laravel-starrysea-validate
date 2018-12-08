@@ -3,6 +3,7 @@
 namespace Starrysea\Validate;
 
 use Illuminate\Support\Facades\Request;
+use Starrysea\Usually\Convert;
 
 trait FormRequest
 {
@@ -62,6 +63,7 @@ trait FormRequest
         if (!empty(Request::route()->action['as']))
             $get = __FUNCTION__ . ' ' . Request::route()->action['as'];
 
+        $get = Convert::filtercharacter($get,' ');
         return $this->rulesReturn($get, $returnName);
     }
 
