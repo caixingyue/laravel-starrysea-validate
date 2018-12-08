@@ -100,6 +100,41 @@ class AppServiceProvider
 ```
 
 ```php
+// vendor/laravel/framework/src/Illuminate/Foundation/Http/FormRequest.php
+
+use Starrysea\Validate\FormRequest as FormRequestDevelop;
+
+class FormRequest
+{
+    ...
+    
+    // 引入表单验证扩展
+    use FormRequestDevelop;
+    
+    // 重写创建验证实例方法
+    protected function createDefaultValidator(ValidationFactory $factory)
+    {
+        return $factory->make(
+            $this->validationData(), $this->container->call([$this, 'combine']),
+            $this->messages(), $this->attributes()
+        );
+    }
+    
+    // 重写获取验证数据方法
+    public function validated()
+    {
+        $rules = $this->container->call([$this, 'combine']);
+
+        return $this->only(collect($rules)->keys()->map(function ($rule) {
+            return explode('.', $rule)[0];
+        })->unique()->toArray());
+    }
+
+    ...
+}
+```
+
+```php
 class FormRequestGatherTest
 {
     // 展现构筑规则方法名
