@@ -1,0 +1,38 @@
+{
+    "name": "starrysea/validate",
+    "description": "Laravel routing parameter validation, form validation extension",
+    "homepage": "https://github.com/caixingyue/laravel-starrysea-validate",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "caixingyue",
+            "email": "917373332@qq.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/caixingyue/laravel-starrysea-validate/issues"
+    },
+    "require": {
+        "php": "^7.0"
+	},
+	"autoload": {
+        "psr-4": {
+            "Starrysea\\Validate\\": "src"
+        }
+    },
+	"autoload-dev": {
+        "psr-4": {
+            "Starrysea\\Validate\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Starrysea\\Validate\\ValidateServiceProvider"
+            ],
+            "aliases": {
+                "Validate": "Starrysea\\Validate\\Validate"
+            }
+        }
+    }
+}
