@@ -12,7 +12,7 @@
 composer require starrysea/validate
 ```
 
-在 Laravel 5.6 中，服务提供商将自动注册。在旧版本的框架中，只需在 config/app.php 文件中添加服务提供程序：
+在 Laravel 5.6 中，服务提供商将自动注册。在旧版本的框架中，只需在 `config/app.php` 文件中添加服务提供程序：
 
 ```php
 'providers' => [
@@ -36,7 +36,7 @@ composer require starrysea/validate
 
 注册服务提供者和门面：
 
-```bash
+```php
 $app->register(Starrysea\Validate\ValidateServiceProvider::class); // 注册 Validate 服务提供者
 
 class_alias(Starrysea\Validate\Validate::class, 'Validate'); // 添加 Validate 门面
@@ -51,15 +51,15 @@ use Starrysea\Validate\Validate;
 
 class RouteServiceProvider
 {
-    ...
+    // ...
     
     public function boot()
     {
         Validate::RoutesParameter(); // 定义路由参数验证
-        ...
+        // ...
     }
     
-    ...
+    // ...
 }
 ```
 
@@ -89,15 +89,15 @@ use Starrysea\Validate\Validate;
 
 class AppServiceProvider
 {
-    ...
+    // ...
 
     public function boot()
     {
         Validate::FormRules(); // 扩展表单验证规则
-        ...
+        // ...
     }
     
-    ...
+    // ...
 }
 ```
 
@@ -105,7 +105,7 @@ class AppServiceProvider
 // resources/lang/en/validation.php
 
 return [
-    ...
+    // ...
 
     'identitys' => 'The :attribute not a valid id number.',
 
@@ -119,7 +119,7 @@ return [
 // resources/lang/zh_cn/validation.php
 
 return [
-    ...
+    // ...
 
     'identitys' => ':attribute 不是合法的身份证号码',
 
@@ -138,7 +138,7 @@ use Starrysea\Validate\FormRequest as FormRequestDevelop;
 
 class FormRequest
 {
-    ...
+    // ...
     
     // 引入表单验证扩展
     use FormRequestDevelop;
@@ -162,7 +162,7 @@ class FormRequest
         })->unique()->toArray());
     }
 
-    ...
+    // ...
 }
 ```
 
